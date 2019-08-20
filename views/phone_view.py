@@ -40,6 +40,7 @@ class IndexView(APIView):
     def post(self, request, *args, **kwargs):
         data = self.request.data
         phone = data.get("phone")
+        phone_ = phone
         city = data.get("city")
         error = ""
         if len(phone) != 11:
@@ -60,7 +61,7 @@ class IndexView(APIView):
             error = "号码不能为空"
 
         if error:
-            return render(request, "index.html", {"error": error})
+            return render(request, "index.html", {"error": error, "city": city, "phone": phone_})
 
         mid_data = phone[3:7]
         result = self.filter_condition(mid_data)
@@ -106,7 +107,7 @@ class IndexView(APIView):
             error = "没有相关数据"
         os.system("rm -rf %s" % filename)
 
-        return render(request, "index.html", {"data": data_list, "error": error})
+        return render(request, "index.html", {"data": data_list, "error": error, "city": city, "phone": phone_})
 
     def filter_condition(self, mid_data="0**2"):
         length = len(mid_data)
