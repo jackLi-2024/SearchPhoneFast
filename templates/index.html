@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<head>
+    <title>Title</title>
+</head>
+
+<style>
+    .search_input {
+        width: 400px;
+        padding: 5px;
+        border-color: #00e765;
+    }
+
+    .search_span {
+        width: 100px;
+        display: inline-block;
+        margin: 15px;
+
+
+    }
+
+    td {
+        width: 300px;
+        height: 50px;
+    }
+
+    .head {
+        color: #34e724;
+    }
+
+</style>
+<body>
+
+<form action="/SearchPhone/" method="post">
+
+    <div style="margin: 50px auto;width: 900px;">
+        <p>备注：这是单机使用版，查询速度比较慢，为了方便您查询建议*的数量尽量小，多次查询</p>
+        <p>例如：123****4567 可以拆开分为123**124567 等分开查询，后续将优化加快查询速度</p>
+        <hr>
+        <span class="search_span">手机号: </span>
+        <input type="text" name="phone" placeholder="请输入手机号，不明数字请用*表示" class="search_input">
+        <br>
+        <span class="search_span">城市/省份: </span>
+        <input type="text" name="city" placeholder="请过滤城市，可以不填" class="search_input">
+        <input type="submit" value="查询"
+               style="padding: 15px;background-color: #00e765;position: relative;left: 100px;top: -12px;font-size: 30px;padding-bottom: 10px;padding-top: 10px">
+        <hr>
+        {% if error %}
+        <p>{{error}}</p>
+        {% endif %}
+        {% if data %}
+
+        <table style="margin-left: 150px">
+            <tr>
+                <td class="head">序号</td>
+                <td class="head">电话号码</td>
+                <td class="head">省份</td>
+                <td class="head">城市</td>
+            </tr>
+            {% for one in data %}
+            <tr>
+                <td>{{one.index}}</td>
+                <td>{{one.phone}}</td>
+                <td>{{one.province}}</td>
+                <td>{{one.city}}</td>
+            </tr>
+
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+
+
+</form>
+
+</body>
+</html>
