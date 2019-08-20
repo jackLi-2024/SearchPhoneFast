@@ -91,7 +91,7 @@ class IndexView(APIView):
                     one = json.loads(one)
                 except:
                     continue
-                index += 1
+                
                 try:
                     cityName = one.get("data")[0].get("city")
                     province = one.get("data")[0].get("prov")
@@ -99,6 +99,7 @@ class IndexView(APIView):
                 except:
                     continue
                 if cityName == city or not city or city in province:
+                    index += 1
                     data_list.append({"phone": phone, "city": cityName, "province": province, "index": index})
 
         if not data_list:
